@@ -23,6 +23,6 @@
 
 qbft-network
 quorum-test-network
-hardhat.config.ts
+.env
 
 
