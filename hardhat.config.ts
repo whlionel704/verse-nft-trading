@@ -6,7 +6,7 @@ module.exports = {
   networks: {
     besu: {
       type: "http",
-      url: process.env, // RPC of your Besu node
+      url: process.env.HOST_URL!, // RPC of your Besu node
       accounts: [
         process.env.ALLOC_1_PRIVATE_KEY!, 
         process.env.ALLOC_2_PRIVATE_KEY!, 
