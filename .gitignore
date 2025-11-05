@@ -21,9 +21,6 @@
 
 /notes
 
-# blockchain network files
-qbft-network
-quorum-test-network
 
 # environment variables file
 .env
