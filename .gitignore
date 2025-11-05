@@ -21,8 +21,14 @@
 
 /notes
 
+# blockchain network files
 qbft-network
 quorum-test-network
-hardhat.config.ts
+
+# environment variables file
+.env
+
+# smart contract metadata
+data
 
 

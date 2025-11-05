@@ -1,0 +1,32 @@
+[
+  {
+    "txHash": "0x384771bc82050b019621407a7daee70fc16ed8de6758fdb00dfae76e6c86f1f5",
+    "blockNumber": "12289",
+    "gasUsed": "21000",
+    "latencyMs": "4231.21"
+  },
+  {
+    "txHash": "0x9732d1f4cf8a611d0f4a8211e5f469a6c9f9688a2e7185449d118e0e10d020cf",
+    "blockNumber": "12291",
+    "gasUsed": "21000",
+    "latencyMs": "4060.81"
+  },
+  {
+    "txHash": "0x05e50e8d704f1e4e572de65698a4f9f3e92933d1456ccda795a01cf2ce7deb43",
+    "blockNumber": "12293",
+    "gasUsed": "21000",
+    "latencyMs": "4072.46"
+  },
+  {
+    "txHash": "0x1783dba9cb8685e6833df78cf420067e01009e6b10582c8118f6c42dc068ad6a",
+    "blockNumber": "12295",
+    "gasUsed": "21000",
+    "latencyMs": "4054.85"
+  },
+  {
+    "txHash": "0x8da5cd73b9d0f4a99c51998299147224a01a981e50baecd77908553aff90851b",
+    "blockNumber": "12297",
+    "gasUsed": "21000",
+    "latencyMs": "4071.59"
+  }
+]

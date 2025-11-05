@@ -9,6 +9,9 @@
     "forge-std": "github:foundry-rs/forge-std#v1.9.4",
     "hardhat": "^3.0.8",
     "typescript": "~5.8.0",
-    "viem": "^2.38.3"
+    "viem": "^2.38.6"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
   }
 }
