@@ -7,7 +7,7 @@ dotenv.config();
 
 async function deployVerseNft() {
 
-  // Step 1: Load ABI and Bytecode from Hardhat artifacts
+  //Load ABI and Bytecode from Hardhat artifacts
   const contractName = 'Verse_Nft';
   const artifactPath = path.join(
     './',
