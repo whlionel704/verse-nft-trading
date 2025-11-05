@@ -17,7 +17,7 @@ blockchain/cache
 /types
 
 # Hardhat coverage reports
-/blockchain/coverage
+blockchain/coverage
 
 /notes
 
