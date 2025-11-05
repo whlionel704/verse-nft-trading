@@ -11,7 +11,9 @@ async function deployVerseNft() {
   const contractName = 'Verse_Nft';
   const artifactPath = path.join(
     './',
+    'blockchain',
     'artifacts',
+    'blockchain',
     'contracts',
     `${contractName}.sol`,
     `${contractName}.json`

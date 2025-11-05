@@ -16,6 +16,12 @@ module.exports = {
       ] // From genesis.json
     }
   },
+  paths: {
+    artifacts: "./blockchain/artifacts",
+    cache: "./blockchain/cache",
+    sources: "./blockchain/contracts",
+    tests: "./blockchain/test"
+  },
   solidity: { 
     version: "0.8.28",
     settings: {

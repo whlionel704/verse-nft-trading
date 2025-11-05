@@ -8,16 +8,16 @@
 /bundle
 
 # Hardhat Build Artifacts
-/artifacts
+blockchain/artifacts
 
 # Hardhat compilation (v2) support directory
-/cache
+blockchain/cache
 
 # Typechain output
 /types
 
 # Hardhat coverage reports
-/coverage
+/blockchain/coverage
 
 /notes
 
@@ -26,6 +26,6 @@
 .env
 
 # smart contract metadata
-data
+blockchain/data
 
 

@@ -19,7 +19,7 @@ async function main() {
 
   console.log(`Sending ${TX_COUNT} transactions from ${sender} to ${receiver}`);
 
-  const results = [];
+  const results: any[] = [];
 
   for (let i = 0; i < TX_COUNT; i++) {
     const start = performance.now();
