@@ -13,19 +13,18 @@ blockchain/artifacts
 # Hardhat compilation (v2) support directory
 blockchain/cache
 
-# Typechain output
-/types
+# smart contract metadata
+blockchain/data
 
 # Hardhat coverage reports
 blockchain/coverage
 
-/notes
+# Typechain output
+/types
 
+/notes
 
 # environment variables file
 .env
-
-# smart contract metadata
-blockchain/data
 
 
