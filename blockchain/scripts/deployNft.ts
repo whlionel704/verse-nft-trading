@@ -3,6 +3,9 @@ import { network } from 'hardhat'
 import { readFileSync } from 'node:fs';
 import path from 'node:path';
 
+import { createWalletClient, http } from 'viem'
+import { privateKeyToAccount } from 'viem/accounts'
+
 dotenv.config();
 
 async function deployVerseNft() {
@@ -32,13 +35,21 @@ async function deployVerseNft() {
   //The public client connects to the besu node
   const publicClient = await viem.getPublicClient();
 
-  //The wallet client is used to deploy the contract
-  const [walletClient] = await viem.getWalletClients();
+  //The wallet client is used to deploy the contract - FOR LOCAL BESU ONLY
+  // const [walletClient] = await viem.getWalletClients();
+  // console.log(walletClient)
 
+  const account = privateKeyToAccount(`0x${process.env.ALLOC_1_PRIVATE_KEY!}`)
+  const walletClient = createWalletClient({
+    account,
+    transport: http(process.env.HOST_URL!)
+  });
+  
   const hash = await walletClient.deployContract({
     abi,
     bytecode,
-    args: [walletClient.account.address, 'Verse_Nft', 'VNFT'], // Add constructor arguments if needed
+    args: [account.address, 'Verse_Nft', 'VNFT'],
+    chain: undefined
   });
 
   console.log('Deployment transaction hash:', hash);
