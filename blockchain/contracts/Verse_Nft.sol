@@ -14,6 +14,7 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
  * Optionally, users can add on-chain reflections for spiritual engagement.
  */
 contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721Burnable {
+    uint256 private _nextTokenId;
 
     struct NftMetadata {
         string verseReference;     // e.g. "John 3:16"

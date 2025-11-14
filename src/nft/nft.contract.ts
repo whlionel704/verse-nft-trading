@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { createPublicClient, createWalletClient, http } from 'viem';
-import { WalletClient } from 'viem';
 import { abi, qbftChain } from 'blockchain/utils/viem.util.js';
 import { ConfigService } from '@nestjs/config';
 
@@ -56,20 +55,7 @@ export class NftContractService {
       address: this.contractAddress,
       abi,
       functionName: 'mintNft',
-      args: [to, uri, verseReference, artworkURI, artistName, verseText],
-    });
-  }
-
-  async addReflection(
-    tokenId: number,
-    text: string,
-    isAnonymous: boolean
-  ) {
-    return this.walletClient.writeContract({
-      address: this.contractAddress,
-      abi,
-      functionName: 'addReflection',
-      args: [BigInt(tokenId), text, isAnonymous],
+      args: [ to, uri, verseReference, artworkURI, artistName, verseText ],
     });
   }
 
@@ -81,7 +67,7 @@ export class NftContractService {
       address: this.contractAddress,
       abi,
       functionName: 'transferNft',
-      args: [to, BigInt(tokenId)],
+      args: [ to, tokenId ],
     });
   }
 
@@ -90,7 +76,20 @@ export class NftContractService {
       address: this.contractAddress,
       abi,
       functionName: 'burnNft',
-      args: [BigInt(tokenId)],
+      args: [ tokenId ],
+    });
+  } 
+
+  async addReflection(
+    tokenId: number,
+    text: string,
+    anonymity: boolean
+  ) {
+    return this.walletClient.writeContract({
+      address: this.contractAddress,
+      abi,
+      functionName: 'addReflection',
+      args: [BigInt(tokenId), text, anonymity],
     });
   }
 }
