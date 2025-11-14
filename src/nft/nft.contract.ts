@@ -1,23 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { createPublicClient, createWalletClient, http } from 'viem';
-import { abi, qbftChain } from 'blockchain/utils/viem.util.js';
 import { ConfigService } from '@nestjs/config';
+import { qbftChain, abi } from '../../blockchain/utils/viem.util.js';
 
 @Injectable()
 export class NftContract {
   private publicClient: any;
   private walletClient: any;
-  private contractAddress: string | undefined;
+  private contractAddress: string;
 
   constructor(private readonly configService: ConfigService) {
-    this.contractAddress = this.configService.get<string>('VERSE_NFT_CONTRACT_ADDRESS');
+    this.contractAddress = this.configService.getOrThrow('VERSE_NFT_CONTRACT_ADDRESS');
     this.publicClient = createPublicClient({
       chain: qbftChain,
-      transport: http(this.configService.get<string>('HOST_URL')),
+      transport: http(this.configService.getOrThrow('HOST_URL')),
     });
     this.walletClient = createWalletClient({
       chain: qbftChain,
-      transport: http(this.configService.get<string>('HOST_URL'))
+      transport: http(this.configService.getOrThrow('HOST_URL'))
     })
   }
 
