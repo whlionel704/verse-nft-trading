@@ -55,7 +55,7 @@ async function deployVerseNft() {
   console.log('Deployment transaction hash:', hash);
 
   const receipt = await publicClient.waitForTransactionReceipt({ hash });
-  console.log('Verse_Nft contract deployed at:', receipt.contractAddress);
+  console.log('Verse_Nft contract deployed at the following address:', receipt.contractAddress);
   console.log('Block number:', receipt.blockNumber);
   console.log('✅ Deployment successful');
 }

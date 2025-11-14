@@ -24,11 +24,17 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
         string verseText;          // Optional: the full verse text
     }
 
+    struct Reflection {
+        string text;        // Reflection text or IPFS hash
+        address author;     // Real author (used for edit/delete permissions)
+        bool isAnonymous;     // Whether the reflection should be shown anonymously
+    }
+
     // tokenId → Verse details
     mapping(uint256 => NftMetadata) private verseData;
 
     // tokenId → reflections (stored as IPFS hashes or short text)
-    mapping(uint256 => string[]) private reflections;
+    mapping(uint256 => Reflection[]) private reflections;
 
     // Does the NFT exist
     mapping(uint256 => bool) private exists;
@@ -59,6 +65,7 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
         _unpause();
     }
 
+    // --- Public Functions ---
 
     function mintNft(
         address to,
@@ -84,16 +91,36 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
         emit NftMinted(to, tokenId, verseReference, artworkURI);
     }
 
+    function transferNft(address to, uint256 tokenId) external {
+        safeTransferFrom(msg.sender, to, tokenId);
+    }
+
+    function burnNft(uint256 tokenId) external {
+        address owner = _ownerOf(tokenId);
+        require(_isAuthorized(owner, msg.sender, tokenId), "Not owner nor approved");
+        this.burn(tokenId);
+    }
+
     /**
      * @notice Users can attach reflections or short testimonies.
      * @dev could be IPFS hash or a short plaintext string.
      */
-    function addReflection(uint256 tokenId, string calldata reflectionTextOrURI) external {
+    function addReflection(
+        uint256 tokenId,
+        string calldata reflectionTextOrURI,
+        bool anonymity
+    ) external {
         require(exists[tokenId], "Nonexistent token");
-        reflections[tokenId].push(reflectionTextOrURI);
+        reflections[tokenId].push(
+            Reflection({
+                text: reflectionTextOrURI,
+                author: anonymity ? address(0) : msg.sender,
+                isAnonymous: anonymity
+            })
+        );
         emit ReflectionAdded(tokenId, msg.sender, reflectionTextOrURI);
     }
-
+    
     // --- Internal Overrides ---
 
     function _update(
