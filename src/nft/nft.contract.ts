@@ -4,7 +4,7 @@ import { abi, qbftChain } from 'blockchain/utils/viem.util.js';
 import { ConfigService } from '@nestjs/config';
 
 @Injectable()
-export class NftContractService {
+export class NftContract {
   private publicClient: any;
   private walletClient: any;
   private contractAddress: string | undefined;
