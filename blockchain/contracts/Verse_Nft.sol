@@ -123,6 +123,14 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
         emit ReflectionAdded(tokenId, msg.sender, reflectionTextOrURI);
     }
 
+    function getReflections(uint256 tokenId) 
+    external 
+    view 
+    returns (Reflection[] memory) {
+        require(exists[tokenId], "Nonexistent token");
+        return reflections[tokenId];
+    }
+
     // --- Internal Overrides ---
 
     function _update(
