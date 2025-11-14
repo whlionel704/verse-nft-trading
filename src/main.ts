@@ -27,8 +27,7 @@ async function bootstrap() {
   app.enableShutdownHooks();
 
   // --- Config service for env variables ---
-  const configService = app.get(ConfigService);
-  const port = configService.get('PORT');
+  const port = app.get(ConfigService).get('PORT');
 
   await app.listen(port);
   console.log(`🚀 Application running on port ${port}`);

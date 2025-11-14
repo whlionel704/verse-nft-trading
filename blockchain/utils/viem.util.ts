@@ -3,6 +3,7 @@ import path from 'node:path';
 import * as dotenv from "dotenv";
 dotenv.config();
 
+//QBFT Chain configuration for viem public client creation
 export const qbftChain = {
     id: 1337,
     name: "Local QBFT Besu",
@@ -11,6 +12,7 @@ export const qbftChain = {
     rpcUrls: { default: { http: [process.env.HOST_URL!] } },
 };
 
+//Artifact data for contract deployment and interaction
 const contractName = 'Verse_Nft';
 const artifactPath = path.join(
     './',
