@@ -15,8 +15,6 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
  */
 contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721Burnable {
 
-    uint256 private _nextTokenId;
-
     struct NftMetadata {
         string verseReference;     // e.g. "John 3:16"
         string artworkURI;         // IPFS URI for artwork
@@ -25,6 +23,7 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
     }
 
     struct Reflection {
+        uint256 tokenId;    // NFT token this reflection belongs to
         string text;        // Reflection text or IPFS hash
         address author;     // Real author (used for edit/delete permissions)
         bool isAnonymous;     // Whether the reflection should be shown anonymously
@@ -110,9 +109,11 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
         string calldata reflectionTextOrURI,
         bool anonymity
     ) external {
+        //attach reflection to NFT
         require(exists[tokenId], "Nonexistent token");
         reflections[tokenId].push(
             Reflection({
+                tokenId: tokenId,
                 text: reflectionTextOrURI,
                 author: anonymity ? address(0) : msg.sender,
                 isAnonymous: anonymity
@@ -120,7 +121,7 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
         );
         emit ReflectionAdded(tokenId, msg.sender, reflectionTextOrURI);
     }
-    
+
     // --- Internal Overrides ---
 
     function _update(

@@ -1,31 +1,12 @@
+import { abi, bytecode } from 'blockchain/utils/viem.util.js';
 import dotenv from 'dotenv';
 import { network } from 'hardhat'
-import { readFileSync } from 'node:fs';
-import path from 'node:path';
-
 import { createWalletClient, http } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
 
 dotenv.config();
 
 async function deployVerseNft() {
-
-  //Load ABI and Bytecode from Hardhat artifacts
-  const contractName = 'Verse_Nft';
-  const artifactPath = path.join(
-    './',
-    'blockchain',
-    'artifacts',
-    'blockchain',
-    'contracts',
-    `${contractName}.sol`,
-    `${contractName}.json`
-  );
-
-  const artifact = JSON.parse(readFileSync(artifactPath, 'utf8'));
-  const abi = artifact.abi;
-  const bytecode = artifact.bytecode;
-
   //This instantiates the connection to the Besu node
   const { viem } = await network.connect({
     network: "besu",
