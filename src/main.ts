@@ -14,7 +14,6 @@ async function bootstrap() {
   app.enableCors();
 
   // --- Global configuration ---
-  app.setGlobalPrefix('api');  // Every route becomes /api/*
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,         // Strip unknown fields
