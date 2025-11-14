@@ -14,7 +14,6 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
  * Optionally, users can add on-chain reflections for spiritual engagement.
  */
 contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721Burnable {
-
     uint256 private _nextTokenId;
 
     struct NftMetadata {
@@ -25,6 +24,7 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
     }
 
     struct Reflection {
+        uint256 tokenId;    // NFT token this reflection belongs to
         string text;        // Reflection text or IPFS hash
         address author;     // Real author (used for edit/delete permissions)
         bool isAnonymous;     // Whether the reflection should be shown anonymously
@@ -110,9 +110,11 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
         string calldata reflectionTextOrURI,
         bool anonymity
     ) external {
+        //attach reflection to NFT
         require(exists[tokenId], "Nonexistent token");
         reflections[tokenId].push(
             Reflection({
+                tokenId: tokenId,
                 text: reflectionTextOrURI,
                 author: anonymity ? address(0) : msg.sender,
                 isAnonymous: anonymity
@@ -120,7 +122,15 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
         );
         emit ReflectionAdded(tokenId, msg.sender, reflectionTextOrURI);
     }
-    
+
+    function getReflections(uint256 tokenId) 
+    external 
+    view 
+    returns (Reflection[] memory) {
+        require(exists[tokenId], "Nonexistent token");
+        return reflections[tokenId];
+    }
+
     // --- Internal Overrides ---
 
     function _update(
