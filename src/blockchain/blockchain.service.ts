@@ -1,0 +1,1 @@
+//To directly read and write to the smart contract 

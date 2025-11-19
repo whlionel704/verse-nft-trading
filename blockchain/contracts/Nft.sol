@@ -8,19 +8,18 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 
 /**
- * @title Verse_Nft
- * @dev NFT representing a Bible verse with artwork and metadata.
- * Each NFT stores information like verse reference, artwork URI, and artist.
+ * @title Nft
+ * @dev NFT representing artwork and metadata.
+ * Each NFT stores information like description, artwork URI, and artist.
  * Optionally, users can add on-chain reflections for spiritual engagement.
  */
-contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721Burnable {
+contract Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721Burnable {
     uint256 private _nextTokenId;
 
     struct NftMetadata {
-        string verseReference;     // e.g. "John 3:16"
         string artworkURI;         // IPFS URI for artwork
         string artistName;         // Artist display name
-        string verseText;          // Optional: the full verse text
+        string description;        // Optional: the full description
     }
 
     struct Reflection {
@@ -30,8 +29,8 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
         bool isAnonymous;     // Whether the reflection should be shown anonymously
     }
 
-    // tokenId → Verse details
-    mapping(uint256 => NftMetadata) private verseData;
+    // tokenId → NFT details
+    mapping(uint256 => NftMetadata) private nftData;
 
     // tokenId → reflections (stored as IPFS hashes or short text)
     mapping(uint256 => Reflection[]) private reflections;
@@ -42,7 +41,6 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
     event NftMinted(
         address indexed to,
         uint256 indexed tokenId,
-        string verseReference,
         string artworkURI
     );
 
@@ -69,26 +67,24 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
 
     function mintNft(
         address to,
-        string memory uri,
-        string memory verseReference,
+        string memory metadataURI,
         string memory artworkURI,
         string memory artistName,
-        string memory verseText
+        string memory description
     ) external onlyOwner {
         uint256 tokenId = ++_nextTokenId;
         _safeMint(to, tokenId);
-        _setTokenURI(tokenId, uri);
+        _setTokenURI(tokenId, metadataURI);
 
-        verseData[tokenId] = NftMetadata({
-            verseReference: verseReference,
+        nftData[tokenId] = NftMetadata({
             artworkURI: artworkURI,
             artistName: artistName,
-            verseText: verseText
+            description: description
         });
 
         exists[tokenId] = true;
 
-        emit NftMinted(to, tokenId, verseReference, artworkURI);
+        emit NftMinted(to, tokenId, artworkURI);
     }
 
     function transferNft(address to, uint256 tokenId) external {
@@ -145,7 +141,7 @@ contract Verse_Nft is ERC721, ERC721URIStorage, ERC721Pausable, Ownable, ERC721B
         public
         override(ERC721Burnable)
     {
-        delete verseData[tokenId];
+        delete nftData[tokenId];
         delete reflections[tokenId];
         exists[tokenId] = false;
         super.burn(tokenId);

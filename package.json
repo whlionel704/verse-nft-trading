@@ -1,5 +1,5 @@
 {
-  "name": "verse-nft",
+  "name": "nft",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -30,6 +30,7 @@
     "class-validator": "^0.14.2",
     "dotenv": "^17.2.3",
     "helmet": "^8.1.0",
+    "nft.storage": "^7.2.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1"
   },
@@ -63,6 +64,9 @@
     "viem": "^2.38.6"
   },
   "jest": {
+    "moduleNameMapper": {
+      "^src/(.*)$": "<rootDir>/$1"
+    },
     "moduleFileExtensions": [
       "js",
       "json",

@@ -6,7 +6,8 @@ import { privateKeyToAccount } from 'viem/accounts'
 
 dotenv.config();
 
-async function deployVerseNft() {
+async function deployNft() {
+  console.log('🚀 Starting NFT contract deployment...');
   //This instantiates the connection to the Besu node
   const { viem } = await network.connect({
     network: "besu",
@@ -29,19 +30,19 @@ async function deployVerseNft() {
   const hash = await walletClient.deployContract({
     abi,
     bytecode,
-    args: [account.address, 'Verse_Nft', 'VNFT'],
+    args: [account.address, 'Nft', 'VNFT'],
     chain: undefined
   });
 
   console.log('Deployment transaction hash:', hash);
 
   const receipt = await publicClient.waitForTransactionReceipt({ hash });
-  console.log('Verse_Nft contract deployed at the following address:', receipt.contractAddress);
+  console.log('Nft contract deployed at the following address:', receipt.contractAddress);
   console.log('Block number:', receipt.blockNumber);
   console.log('✅ Deployment successful');
 }
 
-deployVerseNft().catch((err) => {
+deployNft().catch((err) => {
   console.error('❌ Deployment failed:', err);
 });
 

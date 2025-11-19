@@ -11,18 +11,15 @@ export class MintNftDto {
 
   @IsString()
   @IsNotEmpty()
-  verseReference!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  artworkURI!: string;
+  imageFilePath!: string;
 
   @IsString()
   @IsNotEmpty()
   artistName!: string;
 
   @IsString()
-  verseText!: string; // optional text can be empty
+  @IsNotEmpty()
+  description!: string;
 }
 
 export class TransferNftDto {

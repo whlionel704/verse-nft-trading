@@ -13,7 +13,7 @@ export const qbftChain = {
 };
 
 //Artifact data for contract deployment and interaction
-const contractName = 'Verse_Nft';
+const contractName = 'Nft';
 const artifactPath = path.join(
     './',
     'blockchain',
