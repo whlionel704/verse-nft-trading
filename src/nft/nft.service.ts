@@ -20,6 +20,7 @@ export class NftService {
       transport: http(this.configService.getOrThrow('HOST_URL')),
     });
     this.walletClient = createWalletClient({
+      account: `0x${this.configService.getOrThrow('ALLOC_1_ADDRESS')}`,
       chain: qbftChain,
       transport: http(this.configService.getOrThrow('HOST_URL'))
     })
@@ -49,13 +50,13 @@ export class NftService {
 
   async mintNft(
     to: string,
-    metadataURI: string,
     //imageFilePath: string,
     artistName: string,
     description: string,
   ) {
 
     const artworkURI = this.metadataService.getArtworkURI();
+    const metadataURI = this.metadataService.generateMetadata({description, artistName});
 
     // Step 1: Upload image to IPFS to obtain the CID which is the artworkURI
     //const artworkURI = await this.metadataService.uploadLocalImageToIPFS(imageFilePath);
@@ -72,6 +73,7 @@ export class NftService {
     //const tokenURI = await this.metadataService.uploadMetadataToIPFS(metadata));
 
     //Calls the smart contract to mint the NFT
+    console.log('Minting NFT with the following details:');
     return this.walletClient.writeContract({
       address: this.contractAddress,
       abi,

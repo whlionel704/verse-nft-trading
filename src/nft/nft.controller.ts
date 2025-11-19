@@ -22,7 +22,6 @@ export class NftController {
   async mintNft(@Body() body: MintNftDto) {
     return this.nftService.mintNft(
       body.to,
-      body.uri,
       //body.imageFilePath,
       body.artistName,
       body.description,

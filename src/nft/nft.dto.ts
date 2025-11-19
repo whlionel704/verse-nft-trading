@@ -5,13 +5,9 @@ export class MintNftDto {
   @IsNotEmpty()
   to!: string;
 
-  @IsString()
-  @IsNotEmpty()
-  uri!: string;
-
-  @IsString()
-  @IsNotEmpty()
-  imageFilePath!: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // imageFilePath!: string;
 
   @IsString()
   @IsNotEmpty()
