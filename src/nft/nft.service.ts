@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { createPublicClient, createWalletClient, http } from 'viem';
 import { ConfigService } from '@nestjs/config';
 import { qbftChain, abi } from '../../blockchain/utils/viem.util.js';
-import { MetadataService } from 'src/metadata/metadata.service.js';
+import { MetadataService } from './metadata.service.js';
 
 @Injectable()
 export class NftService {
